@@ -1,0 +1,59 @@
+{
+  "name": "qubehub",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the QubeHub Partner Data API (real estate CRM, inventory and leads) and webhook signature verification.",
+  "keywords": [
+    "qubehub",
+    "real-estate",
+    "real-estate-crm",
+    "property-developer",
+    "off-plan",
+    "inventory",
+    "api-client",
+    "webhooks",
+    "sdk",
+    "typescript"
+  ],
+  "homepage": "https://qubehub.ai/developers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qubehub-ai/qubehub-sdk-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qubehub-ai/qubehub-sdk-js/issues"
+  },
+  "license": "MIT",
+  "author": "WEDO4U LTD, trading as QubeHub (https://qubehub.ai)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.12"
+  }
+}
