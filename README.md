@@ -1,8 +1,30 @@
-# qubehub: TypeScript SDK for the QubeHub API
+# qubehub: the TypeScript SDK for QubeHub
 
-QubeHub is the sales platform for real estate developers: a real estate CRM with live inventory (the chessboard), leads and deals, a broker and agent portal, webhooks, an API, and an MCP server for AI assistants. This package is the TypeScript SDK for the QubeHub **Partner Data API v1** and for verifying **QubeHub webhooks**.
+QubeHub is the sales platform for real estate developers: a real estate CRM, live inventory on a unit matrix (the chessboard), a broker and agent portal and one inbox for buyer messages, all working from one live record per unit. This package is the official TypeScript SDK for the QubeHub **Partner Data API v1** and for verifying **QubeHub webhooks**, so your ERP, website and BI tools use the same live inventory, leads and deals as your sales team.
 
-Use it to sync a property developer's projects, units, prices and availability into an ERP, a website or a BI pipeline, to export leads, and to receive signed real-time events when a lead, deal or unit changes.
+## Why developers run their sales on QubeHub
+
+Many developers still sell from scattered sources: an inventory spreadsheet, a PDF price list sent around in chats, floor plans in a shared drive and offers assembled by hand. A unit sold on Saturday is still on Monday's price list, brokers get different versions of the portfolio, and agents call to ask what's available. QubeHub replaces that with one live record per unit. Change a price or sell a unit once, and every price list, offer, agent portal and project page shows it.
+
+- **Inventory and prices.** The chessboard shows every unit with its floor, type, area, status and price, and every price change records who made it, when and by how much.
+- **Buyers and deals.** Direct leads, agent leads and rental inquiries run in separate funnels, with a duplicate check on every new buyer.
+- **One inbox.** WhatsApp, Telegram and email in one place, with an AI assistant that replies in seconds and hands qualified buyers to your team.
+- **Broker channel.** A branded agent portal where each agent or agency sees only what you share, and agents keep the buyers they register.
+
+Every module: [qubehub.ai/platform](https://qubehub.ai/platform). How developers run on QubeHub: [qubehub.ai/#cases](https://qubehub.ai/#cases).
+
+QubeHub is built for property developers selling condos, townhomes, single-family homes or master-planned communities, including pre-construction (off-plan) projects, in the US, Europe, the Middle East and Asia. Company owners and executives set prices and terms, sales managers and heads of sales run leads and deals, marketers launch pages from live inventory, and outside brokers sell from the same data.
+
+**Want to see it on your own projects? Book a demo at [qubehub.ai](https://qubehub.ai).**
+
+## What you can build with this SDK
+
+- **Catalog sync from your ERP.** Keep projects, units, prices and sale status in QubeHub in sync with your ERP or inventory system, addressed by your own external IDs. The typed helpers cover the reads; writes such as `PUT /units/by-external-id/{externalId}` go through `request()` with a key that holds `units:write` and is bound to an integration (see the [Partner Data API guide](https://github.com/qubehub-ai/qubehub-docs/blob/main/docs/data-api.md)).
+- **A live availability feed for your website.** Pull every unit with its status and price into your own site or a listings feed, then refresh only what changed with `updatedSince`. If you'd rather not build the UI, [qubehub-widgets](https://github.com/qubehub-ai/qubehub-widgets) embeds the live chessboard itself.
+- **CRM events into your BI pipeline.** Subscribe to lead, deal, contact, unit or project changes, receive a `POST` for each one, verify its signature with one function call (set a signing secret on the webhook) and load it into your warehouse or reporting tool.
+- **Lead exports for reporting.** Page through leads with `leads.listAll()` and feed them into the dashboards your head of sales already reads.
+
+What the package gives you:
 
 - Zero runtime dependencies. ESM. Node.js 18 or later (uses the global `fetch`).
 - Typed resource helpers for the common reads, a generic `request()` for everything else.
@@ -143,12 +165,40 @@ What to know about deliveries:
 - Respond with a `2xx` status within 15 seconds. Anything else, a timeout or a network error is retried a limited number of times on an increasing delay over about a day and a half, with the same `X-Delivery-Id`, so make your handler idempotent. After the last attempt the delivery is marked failed; failed deliveries can be re-sent from the CRM. A test delivery is sent once, with no automatic retry.
 - `verifyWebhookSignature` rejects a timestamp more than 300 seconds from your clock (set `toleranceSeconds` to change it) and compares digests in constant time. QubeHub also sends a legacy `X-Signature` header (an HMAC of the body alone, without a timestamp); prefer `X-Signature-256`.
 
+## FAQ
+
+**What is QubeHub?**
+QubeHub is the sales platform for real estate developers. It brings inventory and prices, buyers and deals, buyer messaging, a broker portal, marketing pages and a showroom of aerial tours, clickable master plans and 360° spins into one hub, where one live record for every unit feeds every price list, offer, portal and project page.
+
+**Does QubeHub have an API?**
+Yes. QubeHub has a Partner Data API that reads and writes projects, units, building structure and media, and reads leads, deals, agents and rental inquiries. Signed webhooks report record changes. Each API key holds only the scopes an admin picks, and the `qubehub` npm package is the official TypeScript SDK for it.
+
+**Can I sync units and prices from my ERP into QubeHub?**
+Yes. The QubeHub Partner Data API addresses projects and units by your own external IDs, so an ERP or inventory system can create and update units, prices and sale status in QubeHub. The `qubehub` TypeScript SDK wraps the reads, and its `request()` method calls the write endpoints.
+
+**Can I show live unit availability on my own website?**
+Yes. Pull units with their status and price through the QubeHub Partner Data API, refreshing only what changed since the last sync, or embed the live chessboard with QubeHub's embeddable widgets, from two lines of HTML.
+
+**Do I have to replace my CRM, website or ERP to use QubeHub?**
+No. QubeHub runs on top of what you already use, or on its own. Your website, ERP and BI tools connect through the Partner Data API, signed webhooks and embeddable widgets.
+
+**Where is my data stored?**
+Each QubeHub customer runs on its own database instance, hosted in the EU (Germany) and encrypted in transit and at rest. An API key works only against the workspace that issued it, and a webhook sends only that workspace's events. QubeHub never uses customer data to train AI models.
+
+**How long does it take to go live?**
+QubeHub onboarding typically takes 1–14 days, depending on the portfolio. With your data ready, the first project goes live on day one, and your current systems keep running in the meantime. Custom integrations are scoped separately.
+
+**How can I see QubeHub on my own projects?**
+Book a demo at [qubehub.ai](https://qubehub.ai). The QubeHub team walks you through the platform using your own projects and units. Developers who already have a workspace can go straight to the [Quick start](#quick-start).
+
 ## More from QubeHub
 
 - [qubehub-docs](https://github.com/qubehub-ai/qubehub-docs): developer documentation for the Partner Data API, webhooks, automations, embeddable widgets and AI assistants.
-- [qubehub-mcp](https://github.com/qubehub-ai/qubehub-mcp): connect QubeHub to Claude and other MCP clients.
+- [qubehub-mcp](https://github.com/qubehub-ai/qubehub-mcp): connect Claude, Claude Code or another MCP client to your QubeHub leads, deals and live units, under your own CRM role and permissions.
 - [qubehub-widgets](https://github.com/qubehub-ai/qubehub-widgets): embed a live unit picker (chessboard) on a developer's website.
 - [qubehub.ai/developers](https://qubehub.ai/developers): the developer hub.
+- [qubehub.ai/platform](https://qubehub.ai/platform): every QubeHub module.
+- [qubehub.ai/security](https://qubehub.ai/security): how QubeHub protects your data.
 - [qubehub.ai](https://qubehub.ai): the product, and **Book a demo**.
 
 ## Development
@@ -164,7 +214,7 @@ The package runs on Node.js 18 or later; the test toolchain needs Node.js 20 or 
 
 ## Security
 
-Please report vulnerabilities privately to [ivan@qubehub.ai](mailto:ivan@qubehub.ai) with the subject "Security report". Do not open a public issue.
+Please report vulnerabilities privately to [legal@qubehub.ai](mailto:legal@qubehub.ai) with the subject "Security report". Do not open a public issue.
 
 ## License
 
