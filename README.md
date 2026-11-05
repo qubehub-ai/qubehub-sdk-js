@@ -4,7 +4,7 @@ QubeHub is the sales platform for real estate developers: a real estate CRM, liv
 
 ## Why developers run their sales on QubeHub
 
-Many developers still sell from scattered sources: an inventory spreadsheet, a PDF price list sent around in chats, floor plans in a shared drive and offers assembled by hand. A unit sold on Saturday is still on Monday's price list, brokers get different versions of the portfolio, and agents call to ask what's available. QubeHub replaces that with one live record per unit. Change a price or sell a unit once, and every price list, offer, agent portal and project page shows it.
+Many developers still sell from scattered sources: an inventory spreadsheet, a PDF price list sent around in chats, floor plans in a shared drive and offers assembled by hand. A unit sold on Saturday is still on Monday's price list, brokers get different versions of the portfolio, and agents call to ask what's available. QubeHub replaces that with one live record per unit. Change a price or sell a unit once, and the agent portal and project pages show it, and every new price list and offer is generated from it.
 
 - **Inventory and prices.** The chessboard shows every unit with its floor, type, area, status and price, and every price change records who made it, when and by how much.
 - **Buyers and deals.** Direct leads, agent leads and rental inquiries run in separate funnels, with a duplicate check on every new buyer.
@@ -196,7 +196,6 @@ Book a demo at [qubehub.ai](https://qubehub.ai). The QubeHub team walks you thro
 - [qubehub-docs](https://github.com/qubehub-ai/qubehub-docs): developer documentation for the Partner Data API, webhooks, automations, embeddable widgets and AI assistants.
 - [qubehub-mcp](https://github.com/qubehub-ai/qubehub-mcp): connect Claude, Claude Code or another MCP client to your QubeHub leads, deals and live units, under your own CRM role and permissions.
 - [qubehub-widgets](https://github.com/qubehub-ai/qubehub-widgets): embed a live unit picker (chessboard) on a developer's website.
-- [qubehub.ai/developers](https://qubehub.ai/developers): the developer hub.
 - [qubehub.ai/platform](https://qubehub.ai/platform): every QubeHub module.
 - [qubehub.ai/security](https://qubehub.ai/security): how QubeHub protects your data.
 - [qubehub.ai](https://qubehub.ai): the product, and **Book a demo**.

@@ -14,7 +14,7 @@
     "sdk",
     "typescript"
   ],
-  "homepage": "https://qubehub.ai/developers",
+  "homepage": "https://github.com/qubehub-ai/qubehub-sdk-js#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qubehub-ai/qubehub-sdk-js.git"
